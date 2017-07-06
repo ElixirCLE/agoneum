@@ -1,5 +1,5 @@
 defmodule Agoneum.Repo do
-  use Ecto.Repo, otp_app: :Agoneum
+  use Ecto.Repo, otp_app: :agoneum
 
   @doc """
   Dynamically loads the repository url from the

@@ -1,5 +1,5 @@
 defmodule Agoneum.Web.Endpoint do
-  use Phoenix.Endpoint, otp_app: :Agoneum
+  use Phoenix.Endpoint, otp_app: :agoneum
 
   socket "/socket", Agoneum.Web.UserSocket
 
@@ -8,7 +8,7 @@ defmodule Agoneum.Web.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :Agoneum, gzip: false,
+    at: "/", from: :agoneum, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the

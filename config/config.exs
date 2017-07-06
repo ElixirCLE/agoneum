@@ -6,12 +6,11 @@
 use Mix.Config
 
 # General application configuration
-config :Agoneum,
-  ecto_repos: [Agoneum.Repo],
-  loggers: [{ScoutApm.Instruments.EctoLogger, :log, []}]
+config :agoneum,
+  ecto_repos: [Agoneum.Repo]
 
 # Configures the endpoint
-config :Agoneum, Agoneum.Web.Endpoint,
+config :agoneum, Agoneum.Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "94tJaReWHmXpzPGLsX7LMi3UXD1WZwZB1L7+Zp/KL9YhspYx0NRpcjBrIJMfWi6Q",
   render_errors: [view: Agoneum.Web.ErrorView, accepts: ~w(json)],
