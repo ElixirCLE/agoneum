@@ -19,6 +19,7 @@ defmodule Agoneum.Web do
   def controller do
     quote do
       use Phoenix.Controller, namespace: Agoneum.Web
+      use ScoutApm.Instrumentation
       import Plug.Conn
       import Agoneum.Web.Router.Helpers
       import Agoneum.Web.Gettext

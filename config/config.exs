@@ -7,7 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :Agoneum,
-  ecto_repos: [Agoneum.Repo]
+  ecto_repos: [Agoneum.Repo],
+  loggers: [{ScoutApm.Instruments.EctoLogger, :log, []}]
 
 # Configures the endpoint
 config :Agoneum, Agoneum.Web.Endpoint,

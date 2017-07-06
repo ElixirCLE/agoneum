@@ -17,7 +17,7 @@ defmodule Agoneum.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Agoneum.Application, []},
-     extra_applications: [:logger, :runtime_tools]]
+     extra_applications: [:logger, :runtime_tools, :scout_apm]]
   end
 
   # Specifies which paths to compile per environment.
@@ -28,14 +28,17 @@ defmodule Agoneum.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc", override: true},
+    [
+     {:comeonin, "~> 3.0.0"},
+     {:cowboy, "~> 1.0"},
+     {:gettext, "~> 0.11"},
+     {:guardian, "~> 0.14.4"},
+     {:phoenix, "~> 1.3.0-rc", override: true},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
-     {:guardian, "~> 0.14.4"},
-     {:comeonin, "~> 3.0.0"}]
+     {:scout_apm, "~> 0.0"}
+   ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
@@ -47,6 +50,7 @@ defmodule Agoneum.Mixfile do
   defp aliases do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
+     "s": ["phx.server"],
      "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end
