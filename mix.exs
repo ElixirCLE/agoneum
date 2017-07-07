@@ -37,7 +37,9 @@ defmodule Agoneum.Mixfile do
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
-     {:scout_apm, "~> 0.0"}
+     {:scout_apm, "~> 0.0"},
+
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
    ]
   end
 
