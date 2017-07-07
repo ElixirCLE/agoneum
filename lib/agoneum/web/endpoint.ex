@@ -14,6 +14,9 @@ defmodule Agoneum.Web.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+
+    plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
 
@@ -33,7 +36,7 @@ defmodule Agoneum.Web.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_Agoneum_key",
+    key: "_agoneum_key",
     signing_salt: "lU5fdejS"
 
   plug Agoneum.Web.Router

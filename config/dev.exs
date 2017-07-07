@@ -29,6 +29,17 @@ config :agoneum, Agoneum.Web.Endpoint,
 # configured to run both http and https servers on
 # different ports.
 
+# Watch static and templates for browser reloading.
+config :agoneum, Agoneum.Web.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/gettext/.*(po)$},
+      ~r{lib/agoneum/web/views/.*(ex)$},
+      ~r{lib/agoneum/web/templates/.*(eex|slim|slime)$}
+    ]
+  ]
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
