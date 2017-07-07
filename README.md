@@ -1,4 +1,4 @@
-# Agoneum [![Build Status](https://travis-ci.org/ElixirCLE/Agoneum.svg?branch=master)](https://travis-ci.org/ElixirCLE/Agoneum)
+# Agoneum [![Build Status](https://travis-ci.org/ElixirCLE/agoneum.svg?branch=master)](https://travis-ci.org/ElixirCLE/agoneum)
 
 Agon and the Coliseum. The latest and greatest game picker / library.
 
