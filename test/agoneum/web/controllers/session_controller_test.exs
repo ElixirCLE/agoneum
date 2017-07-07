@@ -17,8 +17,8 @@ defmodule Agoneum.Web.SessionControllerTest do
   end
 
   test "creates user and sends the jwt when data is valid", %{conn: conn} do
-    fixture(:user)
-    conn = post conn, session_path(conn, :create), session: @login_attrs
+    Account.create_user(@create_attrs)
+    conn = post conn, api_session_path(conn, :create), session: @login_attrs
     assert %{"id" => _id} = json_response(conn, 201)["data"]["user"]
     assert %{"jwt" => _jwt} = json_response(conn, 201)["data"]
     auth_header = Enum.find(conn.resp_headers, fn x -> elem(x, 0) == "authorization" end)
@@ -26,12 +26,12 @@ defmodule Agoneum.Web.SessionControllerTest do
   end
 
   test "does not create user and renders a 401 unauthorized error when data is invalid", %{conn: conn} do
-    conn = post conn, session_path(conn, :create), session: @invalid_attrs
+    conn = post conn, api_session_path(conn, :create), session: @invalid_attrs
     assert json_response(conn, 401)["errors"] != %{}
   end
 
   test "does not create user and redners a 401 unauthorized error when data is missing", %{conn: conn} do
-    conn = post conn, session_path(conn, :create), session: %{}
+    conn = post conn, api_session_path(conn, :create), session: %{}
     assert json_response(conn, 401)["errors"] != %{}
   end
 end

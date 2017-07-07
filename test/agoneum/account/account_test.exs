@@ -71,13 +71,13 @@ defmodule Agoneum.AccountTest do
 
     test "update_user/2 with a password updates the password" do
       user = user_fixture()
-      assert {:ok, updated_user} = Account.update_user(user, %{password: "new_password"} )
+      assert {:ok, updated_user} = Account.update_user(user, %{password: "new_password"})
       refute user.password_hash == updated_user.password_hash
     end
 
     test "update_user/2 without a password update does not update the password" do
       user = user_fixture()
-      assert {:ok, updated_user} = Account.update_user(user, %{email: "new_email@example.com"} )
+      assert {:ok, updated_user} = Account.update_user(user, %{email: "new_email@example.com"})
       assert user.password_hash == updated_user.password_hash
     end
 

@@ -29,8 +29,8 @@ defmodule Agoneum.Web.Router do
     pipe_through :api
 
     scope "/v1" do
-      post "/registrations", RegistrationController, :create
-      post "/sessions", SessionController, :create
+      post "/registrations", RegistrationController, :create, as: :api_registration
+      post "/sessions", SessionController, :create, as: :api_session
     end
 
     scope "/v1" do
