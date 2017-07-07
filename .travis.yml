@@ -13,8 +13,15 @@ install:
   - mix deps.get
 before_script:
   - mix ecto.setup
-script:
-  - mix test
 notifications:
   recipients:
     - serneum@gmail.com
+    - david.a.shah@gmail.com
+jobs:
+  include:
+    - stage: lint
+      script:
+        - mix credo
+    - stage: test
+      script:
+        - mix test

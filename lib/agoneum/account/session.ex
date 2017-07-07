@@ -1,4 +1,5 @@
 defmodule Agoneum.Account.Session do
+  @moduledoc ""
   alias Agoneum.Account
   alias Agoneum.Account.User
 
