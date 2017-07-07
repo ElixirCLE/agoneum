@@ -4,6 +4,9 @@ defmodule Agoneum.Account.User do
   import Ecto.Changeset
   alias Agoneum.Account.User
 
+  @required_fields ~w(email name)a
+  @required_reg_fields ~w(password)a ++ @required_fields
+  @all_fields ~w(admin)a ++ @required_reg_fields
 
   schema "account_users" do
     field :email, :string
@@ -12,14 +15,29 @@ defmodule Agoneum.Account.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    field :admin, :boolean, default: false, null: false
+
     timestamps()
   end
 
-  @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, @all_fields)
+    |> validate_required(@required_fields)
+    |> common_changeset()
+  end
+
+  def registration_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, @required_reg_fields)
+    |> validate_required(@required_reg_fields)
+    |> common_changeset()
+  end
+
+  defp common_changeset(changeset) do
+    changeset
+    |> validate_length(:password, min: 6)
+    |> validate_confirmation(:password, message: "does not match password")
     |> hash_password
   end
 

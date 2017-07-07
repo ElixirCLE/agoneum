@@ -63,6 +63,13 @@ defmodule Agoneum.Account do
   """
   def create_user(attrs \\ %{}) do
     %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  # TODO: Revisit function name, actions, etc. Add doc
+  def create_user_admin(attrs \\ %{}) do
+    %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
   end
