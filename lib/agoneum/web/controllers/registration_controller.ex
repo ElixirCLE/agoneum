@@ -6,14 +6,21 @@ defmodule Agoneum.Web.RegistrationController do
 
   action_fallback Agoneum.Web.FallbackController
 
-  def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Account.create_user(user_params) do
-      {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, :token)
+  def new(conn, _params) do
+    changeset = Account.change_user(%User{})
+    render(conn, "new.html", changeset: changeset)
+  end
 
-      conn
-      |> put_status(:created)
-      |> put_resp_header("authorization", "Bearer #{jwt}")
-      |> render("registration.json", user: user, jwt: jwt)
+  def create(conn, %{"user" => user_params}) do
+    case Account.create_user(user_params) do
+      {:ok, %User{} = user} ->
+        conn
+        |> Guardian.Plug.sign_in(user)
+        |> redirect(to: page_path(conn, :index))
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render(:new, changeset: changeset)
     end
   end
 end
