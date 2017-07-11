@@ -9,6 +9,11 @@ defmodule Agoneum.Web.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_auth do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -23,7 +28,12 @@ defmodule Agoneum.Web.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/registrations", RegistrationController, only: [:create, :new]
-    post "/sessions", SessionController, :create
+    resources "/sessions", SessionController, only: [:create, :new]
+    delete "/sessions", SessionController, :delete
+  end
+
+  scope "/", Agoneum.Web do
+    pipe_through [:browser, :browser_auth]
 
     get "/", PageController, :index
   end
@@ -33,7 +43,8 @@ defmodule Agoneum.Web.Router do
 
     scope "/v1" do
       post "/registrations", RegistrationController, :create, as: :api_registration
-      post "/sessions", SessionController, :create, as: :api_session
+      resources "/sessions", SessionController, only: [:create, :new], as: :api_session
+      delete "/sessions", SessionController, :delete, as: :api_session
     end
 
     scope "/v1" do
