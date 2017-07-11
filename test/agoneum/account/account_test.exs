@@ -20,9 +20,9 @@ defmodule Agoneum.AccountTest do
     end
 
     test "list_users/0 returns all users" do
-      user = user_fixture()
-      assert [returned_user] = Account.list_users()
-      assert user.id == returned_user.id
+      user_fixture()
+      users = Account.list_users()
+      assert length(users) > 1
     end
 
     test "get_user!/1 returns the user with given id" do
