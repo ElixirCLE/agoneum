@@ -40,6 +40,8 @@ defmodule Agoneum.Web do
       import Agoneum.Web.Router.Helpers
       import Agoneum.Web.ErrorHelpers
       import Agoneum.Web.Gettext
+
+      import Agoneum.Account.Session, only: [current_user: 1, logged_in?: 1]
     end
   end
 

@@ -14,6 +14,12 @@ defmodule Agoneum.Account.Session do
   end
   def authenticate(_), do: {:error, :invalid_credentials}
 
+  def current_user(conn) do
+    Guardian.Plug.current_resource(conn)
+  end
+
+  def logged_in?(conn), do: !!current_user(conn)
+
   @spec check_password(nil | %User{}, String.t) :: boolean()
   defp check_password(nil, _), do: Comeonin.Bcrypt.dummy_checkpw
   defp check_password(%User{} = user, password) do
