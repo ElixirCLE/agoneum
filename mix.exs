@@ -29,6 +29,8 @@ defmodule Agoneum.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+     {:canada, "~> 1.0.1"},
+     {:canary, "~> 1.1.0"},
      {:comeonin, "~> 3.0.0"},
      {:cowboy, "~> 1.0"},
      {:gettext, "~> 0.11"},
