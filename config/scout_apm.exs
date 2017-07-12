@@ -4,7 +4,7 @@
 use Mix.Config
 
 config :scout_apm,
-  name: "YourApp", # The app name that will appear within the Scout UI
+  name: "Agoneum", # The app name that will appear within the Scout UI
   key: "Qy0hDGjhlAviVv7lsMvx"
 
 config :phoenix, :template_engines,
