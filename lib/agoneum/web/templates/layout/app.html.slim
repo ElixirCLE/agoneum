@@ -8,18 +8,20 @@ html lang="en"
     meta name="author" content=""
 
     title Hello Agoneum!
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    link rel="stylesheet" href="/css/app.css"
 
   body
     div.container
       header.header
         nav role="navigation"
 
-      p.alert.alert-info role="alert" <%= get_flash(@conn, :info) %>
-      p.alert.alert-danger role="alert" <%= get_flash(@conn, :error) %>
+      p.alert.alert-info role="alert"
+        = get_flash(@conn, :info)
+      p.alert.alert-danger role="alert"
+        = get_flash(@conn, :error)
 
       main role="main"
-        <%= render @view_module, @view_template, assigns %>
+        = render @view_module, @view_template, assigns
 
-    <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    /! /container
+    script src="/js/app.js"
