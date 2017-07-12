@@ -65,6 +65,9 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "100732563415-5efppgqkh9nk609m8u4v97ccobbvh7j1.apps.googleusercontent.com",
   client_secret: "s1iVunv1TJ5YRMVw2umKfCzW"
 
+config :canary,
+  repo: Agoneum.Repo
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

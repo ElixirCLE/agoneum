@@ -25,6 +25,7 @@ html lang="en"
                 span.caret
               ul.dropdown-menu
                 = if logged_in?(@conn) do
+                  = link "Edit", to: profile_path(@conn, :edit), class: "dropdown-item"
                   = link "Log Out", to: session_path(@conn, :delete), method: "delete", class: "dropdown-item"
                 - else
                   = link "Log In", to: session_path(@conn, :request, :identity), class: "dropdown-item"
