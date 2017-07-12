@@ -4,6 +4,12 @@ defmodule Agoneum.Account.User do
   import Ecto.Changeset
   alias Agoneum.Account.User
 
+  @required_fields ~w(email name)a
+  @optional_fields ~w(active admin password)a
+  @all_fields @required_fields ++ @optional_fields
+
+  @required_reg_fields ~w(password)a ++ @required_fields
+  @all_reg_fields @required_reg_fields ++ @optional_fields
 
   schema "account_users" do
     field :email, :string
@@ -12,15 +18,41 @@ defmodule Agoneum.Account.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    field :active, :boolean, default: false
+    field :admin, :boolean, default: false
+
     timestamps()
   end
 
-  @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password])
-    |> validate_required([:name, :email, :password])
+    |> cast(attrs, @all_fields)
+    |> validate_required(@required_fields)
+    |> common_changeset()
+  end
+
+  def registration_changeset(%User{} = user, attrs) do
+    user
+    |> cast(attrs, @all_reg_fields)
+    |> validate_required(@required_reg_fields)
+    |> common_changeset()
+  end
+
+  defp common_changeset(changeset) do
+    changeset
+    |> validate_length(:password, min: 6)
+    |> validate_confirmation(:password, message: "does not match password")
     |> hash_password
+  end
+
+  def display_name(user) do
+    display_name(user.email, user.name)
+  end
+  defp display_name(_, name) when not is_nil(name) do
+    name
+  end
+  defp display_name(email, _) do
+    email
   end
 
   @spec hash_password(%Ecto.Changeset{}) :: %Ecto.Changeset{}

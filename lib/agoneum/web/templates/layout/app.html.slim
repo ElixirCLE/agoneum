@@ -11,17 +11,33 @@ html lang="en"
     link rel="stylesheet" href="/css/app.css"
 
   body
+    nav.navbar.navbar-toggleable-md.navbar-light role="navigation"
+      div.container
+        div.navbar-header
+          = link "", to: page_path(@conn, :index), class: "logo navbar-brand"
+        div.collapse.navbar-collapse
+          ul.navbar-nav.navbar-right
+            li.nav-item role="presentation"
+              = link "Home", to: page_path(@conn, :index), class: "nav-link"
+            li.nav-item.dropdown role="presentation"
+              a.nav-link.dropdown-toggle href="#" data-toggle="dropdown"
+                = current_user_name(@conn)
+                span.caret
+              ul.dropdown-menu
+                = if logged_in?(@conn) do
+                  = link "Edit", to: user_path(@conn, :edit, current_user(@conn)), class: "dropdown-item"
+                  = link "Log Out", to: session_path(@conn, :delete), method: "delete", class: "dropdown-item"
+                - else
+                  = link "Log In", to: session_path(@conn, :new), class: "dropdown-item"
+                  = link "Register", to: registration_path(@conn, :new), class: "dropdown-item"
     div.container
-      header.header
-        nav role="navigation"
-
       p.alert.alert-info role="alert"
         = get_flash(@conn, :info)
       p.alert.alert-danger role="alert"
         = get_flash(@conn, :error)
 
+      script src="/js/app.js"
+
       main role="main"
         = render @view_module, @view_template, assigns
 
-    /! /container
-    script src="/js/app.js"

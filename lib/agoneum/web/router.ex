@@ -9,10 +9,9 @@ defmodule Agoneum.Web.Router do
     plug :put_secure_browser_headers
   end
 
-  scope "/", Agoneum.Web do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
+  pipeline :browser_auth do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
   end
 
   pipeline :api do
@@ -25,17 +24,47 @@ defmodule Agoneum.Web.Router do
     plug Guardian.Plug.EnsureResource
   end
 
+  pipeline :edit_authenticate do
+    plug Guardian.Plug.EnsureAuthenticated, handler: Agoneum.GuardianErrorHandler
+    plug Agoneum.Plug.EditAuthenticate
+  end
+
+  pipeline :view_authenticate do
+    plug Agoneum.Plug.ViewAuthenticate
+  end
+
+  scope "/", Agoneum.Web do
+    pipe_through :browser # Use the default browser stack
+
+    resources "/registrations", RegistrationController, only: [:create, :new]
+    resources "/login", SessionController, only: [:create, :new]
+  end
+
+  scope "/", Agoneum.Web do
+    pipe_through [:browser, :browser_auth, :view_authenticate]
+  end
+
+  scope "/", Agoneum.Web do
+    pipe_through [:browser, :browser_auth, :edit_authenticate]
+
+    get "/", PageController, :index
+
+    resources "/user", UserController, only: [:edit, :update]
+
+    delete "/logout", SessionController, :delete
+  end
+
   scope "/api", Agoneum.Web do
     pipe_through :api
 
     scope "/v1" do
-      post "/registrations", RegistrationController, :create
-      post "/sessions", SessionController, :create
+      post "/registrations", RegistrationController, :create, as: :api_registration
+      resources "/sessions", SessionController, only: [:create, :new], as: :api_session
+      delete "/sessions", SessionController, :delete, as: :api_session
     end
 
     scope "/v1" do
       pipe_through :api_auth
-
     end
   end
 end
