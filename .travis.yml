@@ -11,8 +11,6 @@ install:
   - mix local.hex --force
   - mix local.rebar --force
   - mix deps.get
-before_script:
-  - mix ecto.setup
 notifications:
   recipients:
     - serneum@gmail.com
@@ -24,4 +22,5 @@ jobs:
         - mix credo
     - stage: test
       script:
+        - mix ecto.setup
         - mix test
