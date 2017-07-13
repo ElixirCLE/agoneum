@@ -1,15 +1,8 @@
 defmodule Agoneum.Web.RegistrationControllerTest do
   use Agoneum.Web.ConnCase
 
-  alias Agoneum.Account
-
   @create_attrs %{email: "some email", name: "some name", password: "some password"}
   @invalid_attrs %{email: nil, name: nil, password: nil}
-
-  def fixture(:user) do
-    {:ok, user} = Account.create_user(@create_attrs)
-    user
-  end
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

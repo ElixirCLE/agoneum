@@ -17,7 +17,7 @@ defmodule Agoneum.Web.SessionControllerTest do
   end
 
   test "creates user and sends the jwt when data is valid", %{conn: conn} do
-    fixture(:user)
+    Account.create_user(@create_attrs)
     conn = post conn, session_path(conn, :create), session: @login_attrs
     assert %{"id" => _id} = json_response(conn, 201)["data"]["user"]
     assert %{"jwt" => _jwt} = json_response(conn, 201)["data"]
