@@ -4,8 +4,8 @@ defmodule Agoneum.Web.SessionControllerTest do
   alias Agoneum.Account
 
   describe "UI login" do
-    @create_attrs %{name: "some name", email: "some email", password: "some password"}
-    @login_attrs %{email: "some email", password: "some password"}
+    @create_attrs %{name: "some name", email: "email@agoneum.com", password: "some password"}
+    @login_attrs %{email: "email@agoneum.com", password: "some password"}
     @invalid_attrs %{email: nil, password: nil}
 
     test "shows the login form", %{conn: conn} do
@@ -31,8 +31,8 @@ defmodule Agoneum.Web.SessionControllerTest do
   end
 
   describe "API login" do
-    @create_attrs %{name: "some name", email: "some email", password: "some password"}
-    @login_attrs %{email: "some email", password: "some password"}
+    @create_attrs %{name: "some name", email: "email@agoneum.com", password: "some password"}
+    @login_attrs %{email: "email@agoneum.com", password: "some password"}
     @invalid_attrs %{email: nil, password: nil}
 
     setup %{conn: conn} do

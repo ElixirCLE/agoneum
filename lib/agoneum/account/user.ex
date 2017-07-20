@@ -36,6 +36,7 @@ defmodule Agoneum.Account.User do
 
   defp common_changeset(changeset) do
     changeset
+    |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 6)
     |> validate_confirmation(:password, message: "does not match password")
     |> hash_password

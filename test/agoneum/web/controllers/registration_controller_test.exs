@@ -1,7 +1,7 @@
 defmodule Agoneum.Web.RegistrationControllerTest do
   use Agoneum.Web.ConnCase
 
-  @create_attrs %{email: "some email", name: "some name", password: "some password"}
+  @create_attrs %{email: "email@agoneum.com", name: "some name", password: "some password"}
   @invalid_attrs %{email: nil, name: nil, password: nil}
 
   test "creates user and redirects to the main page", %{conn: conn} do

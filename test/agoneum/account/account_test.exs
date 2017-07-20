@@ -6,8 +6,8 @@ defmodule Agoneum.AccountTest do
   describe "users" do
     alias Agoneum.Account.User
 
-    @valid_attrs %{email: "some email", name: "some name", password: "some password"}
-    @update_attrs %{email: "some updated email", name: "some updated name", password: "some updated password"}
+    @valid_attrs %{email: "email@agoneum.com", name: "some name", password: "some password"}
+    @update_attrs %{email: "updated@agoneum.com", name: "some updated name", password: "some updated password"}
     @invalid_attrs %{email: nil, name: nil, password_hash: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -55,7 +55,7 @@ defmodule Agoneum.AccountTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Account.create_user(@valid_attrs)
-      assert user.email == "some email"
+      assert user.email == "email@agoneum.com"
       assert user.name == "some name"
     end
 
@@ -67,7 +67,7 @@ defmodule Agoneum.AccountTest do
       user = user_fixture()
       assert {:ok, user} = Account.update_user(user, @update_attrs)
       assert %User{} = user
-      assert user.email == "some updated email"
+      assert user.email == "updated@agoneum.com"
       assert user.name == "some updated name"
     end
 
@@ -79,7 +79,7 @@ defmodule Agoneum.AccountTest do
 
     test "update_user/2 without a password update does not update the password" do
       user = user_fixture()
-      assert {:ok, updated_user} = Account.update_user(user, %{email: "new_email@example.com"})
+      assert {:ok, updated_user} = Account.update_user(user, %{email: "new_email@agoneum.com"})
       assert user.password_hash == updated_user.password_hash
     end
 
