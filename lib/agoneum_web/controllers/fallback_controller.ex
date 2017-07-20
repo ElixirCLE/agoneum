@@ -27,6 +27,6 @@ defmodule AgoneumWeb.FallbackController do
   def unauthenticated(conn, _params) do
     conn
     |> put_flash(:error, "You must be logged in to do that")
-    |> redirect(to: session_path(conn, :new))
+    |> redirect(to: session_path(conn, :request, :identity))
   end
 end

@@ -32,4 +32,4 @@ hr
   div.text-center
     span Already have an account?&nbsp;
     span
-      = link "Log In", to: session_path(@conn, :new)
+      = link "Log In", to: session_path(@conn, :request, :identity)

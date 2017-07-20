@@ -28,7 +28,12 @@ defmodule AgoneumWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/registrations", RegistrationController, only: [:create, :new]
-    resources "/login", SessionController, only: [:create, :new]
+
+    scope "/login" do
+      get "/:provider", SessionController, :request
+      get "/:provider/callback", SessionController, :callback
+      post "/:provider/callback", SessionController, :callback
+    end
     delete "/logout", SessionController, :delete
   end
 

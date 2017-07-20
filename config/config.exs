@@ -42,6 +42,22 @@ config :guardian, Guardian,
   },
   serializer: Agoneum.GuardianSerializer
 
+config :ueberauth, Ueberauth,
+  base_path: "/login",
+  providers: [
+    facebook: { Ueberauth.Strategy.Facebook, [
+      default_scope: "email,public_profile",
+      profile_fields: "name,email"
+    ]},
+    identity: { Ueberauth.Strategy.Identity, [
+      callback_methods: ["POST"]
+    ]}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
+  client_id: "882284788592067",
+  client_secret: "4749013b002d7ed5acaad9b55797fade"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

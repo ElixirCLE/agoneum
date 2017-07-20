@@ -2,31 +2,37 @@ defmodule AgoneumWeb.SessionController do
   use AgoneumWeb, :controller
 
   alias Agoneum.Account.Session
+  alias Ueberauth.Strategy.Helpers
 
   action_fallback AgoneumWeb.FallbackController
 
   plug :scrub_params, "session" when action in [:create]
+  plug Ueberauth
 
-  def new(conn, _params) do
-    render(conn, "new.html")
+  def request(conn, _params) do
+    render(conn, "new.html", callback_url: Helpers.callback_url(conn))
   end
 
-  def create(conn, %{"session" => session_params}) do
-    create(conn, session_params, conn |> get_format() |> String.to_atom())
+  def callback(%{assigns: %{ueberauth_faulure: _fails}} = conn, _params) do
+    conn
+    |> put_flash(:error, "Failed to authenticate")
+    |> redirect(to: session_path(conn, :request, :identity))
   end
-  defp create(conn, session_params, :html) do
-    case Session.authenticate(session_params) do
+
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, session_params) do
+    case Session.authenticate(session_params, auth) do
       {:ok, user} ->
         conn
         |> Guardian.Plug.sign_in(user)
         |> redirect(to: page_path(conn, :index))
-      {:error, _} ->
+      {:error, _reason} ->
         conn
         |> put_flash(:error, "Invalid credentials")
-        |> render(:new)
+        |> redirect(to: session_path(conn, :request, :identity))
     end
   end
-  defp create(conn, session_params, :json) do
+
+  def create(conn, session_params) do
     with {:ok, user} <- Session.authenticate(session_params),
          new_conn <- Guardian.Plug.api_sign_in(conn, user) do
       jwt = Guardian.Plug.current_token(new_conn)
@@ -48,7 +54,7 @@ defmodule AgoneumWeb.SessionController do
     conn
     |> Guardian.Plug.sign_out()
     |> put_flash(:info, "Successfully logged out")
-    |> redirect(to: session_path(conn, :new))
+    |> redirect(to: session_path(conn, :request, :identity))
   end
   defp delete(conn, _, :json) do
     jwt = Guardian.Plug.current_token(conn)

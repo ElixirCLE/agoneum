@@ -43,7 +43,7 @@ defmodule Agoneum.Account.User do
   end
 
   @spec hash_password(%Ecto.Changeset{}) :: %Ecto.Changeset{}
-  defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: pass}} = changeset) do
+  defp hash_password(%Ecto.Changeset{valid?: true, changes: %{password: pass}} = changeset) when not is_nil(pass) do
     put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
   end
   defp hash_password(changeset), do: changeset

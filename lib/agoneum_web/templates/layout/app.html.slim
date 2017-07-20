@@ -27,7 +27,7 @@ html lang="en"
                 = if logged_in?(@conn) do
                   = link "Log Out", to: session_path(@conn, :delete), method: "delete", class: "dropdown-item"
                 - else
-                  = link "Log In", to: session_path(@conn, :new), class: "dropdown-item"
+                  = link "Log In", to: session_path(@conn, :request, :identity), class: "dropdown-item"
                   = link "Register", to: registration_path(@conn, :new), class: "dropdown-item"
     div.container
       p.alert.alert-info role="alert"

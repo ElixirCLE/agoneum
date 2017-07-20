@@ -1,6 +1,6 @@
 h2 Log In
 
-= form_for @conn, session_path(@conn, :create), [as: :session], fn f ->
+= form_for @conn, @callback_url, [as: :session], fn f ->
   div.form-group
     = label(f, :email, class: "control-label")
     = text_input(f, :email, class: "form-control")
