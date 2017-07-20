@@ -13,4 +13,19 @@ defmodule Agoneum.Web.RegistrationControllerTest do
     conn = post conn, registration_path(conn, :create), user: @invalid_attrs
     assert html_response(conn, 422) =~ "Sign Up"
   end
+
+  test "throws an error if the email address is not formatted correctly", %{conn: conn} do
+    conn = post conn, registration_path(conn, :create), user: %{email: "email"}
+    assert html_response(conn, 422) =~ "has invalid format"
+  end
+
+  test "throws an error if the password is too short", %{conn: conn} do
+    conn = post conn, registration_path(conn, :create), user: %{password: "abcd"}
+    assert html_response(conn, 422) =~ "should be at least 6 character(s)"
+  end
+
+  test "throws an error if the password confirmation does not match the password", %{conn: conn} do
+    conn = post conn, registration_path(conn, :create), user: %{password: "abcd", password_confirmation: "efgh"}
+    assert html_response(conn, 422) =~ "does not match password"
+  end
 end
