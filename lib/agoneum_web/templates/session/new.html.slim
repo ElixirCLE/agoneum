@@ -13,6 +13,14 @@ h2 Log In
     = submit("Log In", class: "btn btn-primary")
 
 hr
+  a.btn.btn-block.btn-social.btn-facebook href="<%= session_path(@conn, :request, :facebook) %>"
+    i.fa.fa-facebook
+    | Sign in with Facebook
+  a.btn.btn-block.btn-social.btn-google href="<%= session_path(@conn, :request, :google) %>"
+    i.fa.fa-google
+    | Sign in with Google
+
+hr
   div.text-center
     span Don't have an account?&nbsp;
     span
