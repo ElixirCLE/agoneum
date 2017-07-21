@@ -17,7 +17,8 @@ defmodule Agoneum.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Agoneum.Application, []},
-     extra_applications: [:logger, :runtime_tools, :scout_apm, :ueberauth, :ueberauth_facebook, :ueberauth_identity]]
+     extra_applications: [:logger, :runtime_tools, :scout_apm, :ueberauth,
+                          :ueberauth_facebook, :ueberauth_google, :ueberauth_identity]]
   end
 
   # Specifies which paths to compile per environment.
@@ -43,6 +44,7 @@ defmodule Agoneum.Mixfile do
      {:scout_apm, "~> 0.0"},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_facebook, "~> 0.6"},
+     {:ueberauth_google, "~> 0.5"},
      {:ueberauth_identity, "~> 0.2.3"},
 
      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}

@@ -16,7 +16,7 @@ defmodule Agoneum.Account.Session do
     end
   end
   defp authenticate(:identity, _, _), do: {:error, :invalid_credentials}
-  defp authenticate(:facebook, _, %Ueberauth.Auth.Info{email: email, name: name}) do
+  defp authenticate(_, _, %Ueberauth.Auth.Info{email: email, name: name}) do
     case Account.get_user_by_email(email) do
       nil ->
         # Create the user if they do not already exist
