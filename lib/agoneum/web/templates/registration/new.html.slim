@@ -27,3 +27,9 @@ h1 Create an Account
 
   div.form-group
     = submit("Sign Up", class: "btn btn-primary")
+
+hr
+  div.text-center
+    span Already have an account?&nbsp;
+    span
+      = link "Log In", to: session_path(@conn, :new)

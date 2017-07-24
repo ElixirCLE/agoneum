@@ -23,4 +23,10 @@ defmodule Agoneum.Web.FallbackController do
     |> put_status(:unauthorized)
     |> render(Agoneum.Web.ErrorView, :"401_invalid_credentials")
   end
+
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_flash(:error, "You must be logged in to do that")
+    |> redirect(to: session_path(conn, :new))
+  end
 end
