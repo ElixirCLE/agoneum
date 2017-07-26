@@ -1,5 +1,5 @@
-defmodule Agoneum.Web.RegistrationControllerTest do
-  use Agoneum.Web.ConnCase
+defmodule AgoneumWeb.RegistrationControllerTest do
+  use AgoneumWeb.ConnCase
 
   @create_attrs %{email: "email@agoneum.com", name: "some name", password: "some password"}
   @invalid_attrs %{email: nil, name: nil, password: nil}

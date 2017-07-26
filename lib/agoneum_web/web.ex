@@ -1,12 +1,12 @@
-defmodule Agoneum.Web do
+defmodule AgoneumWeb do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Agoneum.Web, :controller
-      use Agoneum.Web, :view
+      use AgoneumWeb, :controller
+      use AgoneumWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -18,18 +18,18 @@ defmodule Agoneum.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Agoneum.Web
+      use Phoenix.Controller, namespace: AgoneumWeb
       use ScoutApm.Instrumentation
       import Plug.Conn
-      import Agoneum.Web.Router.Helpers
-      import Agoneum.Web.Gettext
+      import AgoneumWeb.Router.Helpers
+      import AgoneumWeb.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/agoneum/web/templates",
-                        namespace: Agoneum.Web
+      use Phoenix.View, root: "lib/agoneum_web/templates",
+                        namespace: AgoneumWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -37,9 +37,9 @@ defmodule Agoneum.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import Agoneum.Web.Router.Helpers
-      import Agoneum.Web.ErrorHelpers
-      import Agoneum.Web.Gettext
+      import AgoneumWeb.Router.Helpers
+      import AgoneumWeb.ErrorHelpers
+      import AgoneumWeb.Gettext
 
       import Agoneum.Account.Session, only: [current_user: 1, logged_in?: 1]
     end
@@ -56,7 +56,7 @@ defmodule Agoneum.Web do
   def channel do
     quote do
       use Phoenix.Channel
-      import Agoneum.Web.Gettext
+      import AgoneumWeb.Gettext
     end
   end
 

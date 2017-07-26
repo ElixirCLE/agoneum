@@ -1,7 +1,7 @@
-defmodule Agoneum.Web.Endpoint do
+defmodule AgoneumWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :agoneum
 
-  socket "/socket", Agoneum.Web.UserSocket
+  socket "/socket", AgoneumWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -39,7 +39,7 @@ defmodule Agoneum.Web.Endpoint do
     key: "_agoneum_key",
     signing_salt: "lU5fdejS"
 
-  plug Agoneum.Web.Router
+  plug AgoneumWeb.Router
 
   @doc """
   Dynamically loads configuration from the system environment

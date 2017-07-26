@@ -1,4 +1,4 @@
-defmodule Agoneum.Web.ConnCase do
+defmodule AgoneumWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,10 +19,10 @@ defmodule Agoneum.Web.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import Agoneum.Web.Router.Helpers
+      import AgoneumWeb.Router.Helpers
 
       # The default endpoint for testing
-      @endpoint Agoneum.Web.Endpoint
+      @endpoint AgoneumWeb.Endpoint
     end
   end
 

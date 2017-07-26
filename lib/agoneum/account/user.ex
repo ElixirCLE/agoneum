@@ -8,7 +8,7 @@ defmodule Agoneum.Account.User do
   @required_reg_fields ~w(password)a ++ @required_fields
   @all_fields ~w(admin)a ++ @required_reg_fields
 
-  schema "account_users" do
+  schema "users" do
     field :email, :string
     field :name, :string
 

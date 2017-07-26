@@ -1,5 +1,5 @@
-defmodule Agoneum.Web.Router do
-  use Agoneum.Web, :router
+defmodule AgoneumWeb.Router do
+  use AgoneumWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -24,7 +24,7 @@ defmodule Agoneum.Web.Router do
     plug Guardian.Plug.EnsureResource
   end
 
-  scope "/", Agoneum.Web do
+  scope "/", AgoneumWeb do
     pipe_through :browser # Use the default browser stack
 
     resources "/registrations", RegistrationController, only: [:create, :new]
@@ -32,13 +32,13 @@ defmodule Agoneum.Web.Router do
     delete "/logout", SessionController, :delete
   end
 
-  scope "/", Agoneum.Web do
+  scope "/", AgoneumWeb do
     pipe_through [:browser, :browser_auth]
 
     get "/", PageController, :index
   end
 
-  scope "/api", Agoneum.Web do
+  scope "/api", AgoneumWeb do
     pipe_through :api
 
     scope "/v1" do

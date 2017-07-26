@@ -1,4 +1,4 @@
-defmodule Agoneum.Web.ErrorHelpers do
+defmodule AgoneumWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule Agoneum.Web.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(Agoneum.Web.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(AgoneumWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Agoneum.Web.Gettext, "errors", msg, opts)
+      Gettext.dgettext(AgoneumWeb.Gettext, "errors", msg, opts)
     end
   end
 end

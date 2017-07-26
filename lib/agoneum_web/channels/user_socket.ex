@@ -1,8 +1,8 @@
-defmodule Agoneum.Web.UserSocket do
+defmodule AgoneumWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Agoneum.Web.RoomChannel
+  # channel "room:*", AgoneumWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -30,7 +30,7 @@ defmodule Agoneum.Web.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     Agoneum.Web.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     AgoneumWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil

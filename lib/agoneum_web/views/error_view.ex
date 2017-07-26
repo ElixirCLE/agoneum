@@ -1,5 +1,5 @@
-defmodule Agoneum.Web.ErrorView do
-  use Agoneum.Web, :view
+defmodule AgoneumWeb.ErrorView do
+  use AgoneumWeb, :view
 
   def render("401_invalid_credentials.json", _assigns) do
     %{errors: %{detail: "Invalid credentials"}}
