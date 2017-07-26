@@ -1,5 +1,5 @@
-defmodule Agoneum.Web.SessionControllerTest do
-  use Agoneum.Web.ConnCase
+defmodule AgoneumWeb.SessionControllerTest do
+  use AgoneumWeb.ConnCase
 
   alias Agoneum.Account
 

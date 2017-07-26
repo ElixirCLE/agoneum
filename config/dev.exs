@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :agoneum, Agoneum.Web.Endpoint,
+config :agoneum, AgoneumWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -31,13 +31,13 @@ config :agoneum, Agoneum.Web.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :agoneum, Agoneum.Web.Endpoint,
+config :agoneum, AgoneumWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/agoneum/web/views/.*(ex)$},
-      ~r{lib/agoneum/web/templates/.*(eex|slim|slime)$}
+      ~r{lib/agoneum_web/views/.*(ex)$},
+      ~r{lib/agoneum_web/templates/.*(eex|slim|slime)$}
     ]
   ]
 

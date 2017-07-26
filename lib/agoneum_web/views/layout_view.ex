@@ -1,5 +1,5 @@
-defmodule Agoneum.Web.LayoutView do
-  use Agoneum.Web, :view
+defmodule AgoneumWeb.LayoutView do
+  use AgoneumWeb, :view
 
   alias Agoneum.Account.Session
 

@@ -1,6 +1,6 @@
-defmodule Agoneum.Web.SessionView do
-  use Agoneum.Web, :view
-  alias Agoneum.Web.SessionView
+defmodule AgoneumWeb.SessionView do
+  use AgoneumWeb, :view
+  alias AgoneumWeb.SessionView
 
   def render("show.json", %{user: user, jwt: jwt, exp: exp}) do
     %{data: %{

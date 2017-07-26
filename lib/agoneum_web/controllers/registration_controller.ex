@@ -1,10 +1,10 @@
-defmodule Agoneum.Web.RegistrationController do
-  use Agoneum.Web, :controller
+defmodule AgoneumWeb.RegistrationController do
+  use AgoneumWeb, :controller
 
   alias Agoneum.Account
   alias Agoneum.Account.User
 
-  action_fallback Agoneum.Web.FallbackController
+  action_fallback AgoneumWeb.FallbackController
 
   def new(conn, _params) do
     changeset = Account.change_user(%User{})

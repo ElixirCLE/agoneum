@@ -1,9 +1,9 @@
-defmodule Agoneum.Web.SessionController do
-  use Agoneum.Web, :controller
+defmodule AgoneumWeb.SessionController do
+  use AgoneumWeb, :controller
 
   alias Agoneum.Account.Session
 
-  action_fallback Agoneum.Web.FallbackController
+  action_fallback AgoneumWeb.FallbackController
 
   plug :scrub_params, "session" when action in [:create]
 

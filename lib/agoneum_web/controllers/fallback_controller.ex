@@ -1,27 +1,27 @@
-defmodule Agoneum.Web.FallbackController do
+defmodule AgoneumWeb.FallbackController do
   @moduledoc """
   Translates controller action results into valid `Plug.Conn` responses.
 
   See `Phoenix.Controller.action_fallback/1` for more details.
   """
-  use Agoneum.Web, :controller
+  use AgoneumWeb, :controller
 
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> render(Agoneum.Web.ChangesetView, "error.json", changeset: changeset)
+    |> render(AgoneumWeb.ChangesetView, "error.json", changeset: changeset)
   end
 
   def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
-    |> render(Agoneum.Web.ErrorView, :"404")
+    |> render(AgoneumWeb.ErrorView, :"404")
   end
 
   def call(conn, {:error, :invalid_credentials}) do
     conn
     |> put_status(:unauthorized)
-    |> render(Agoneum.Web.ErrorView, :"401_invalid_credentials")
+    |> render(AgoneumWeb.ErrorView, :"401_invalid_credentials")
   end
 
   def unauthenticated(conn, _params) do

@@ -12,7 +12,7 @@ defmodule Agoneum.Application do
       # Start the Ecto repository
       supervisor(Agoneum.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Agoneum.Web.Endpoint, []),
+      supervisor(AgoneumWeb.Endpoint, []),
       # Start your own worker by calling: Agoneum.Worker.start_link(arg1, arg2, arg3)
       # worker(Agoneum.Worker, [arg1, arg2, arg3]),
     ]
