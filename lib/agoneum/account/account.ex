@@ -5,8 +5,7 @@ defmodule Agoneum.Account do
 
   import Ecto.Query, warn: false
   alias Agoneum.Repo
-
-  alias Agoneum.Account.User
+  alias Agoneum.{Account.User, Games.Game}
 
   @doc """
   Returns the list of users.
@@ -119,5 +118,19 @@ defmodule Agoneum.Account do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  @doc """
+  Adds a new game (or games) to the user's collection.
+  """
+  def add_games(%User{} = user, %Game{} = game), do: add_games(user, [game])
+  def add_games(%User{} = user, games) do
+    game_changesets = Enum.map(games ++ user.games, &Ecto.Changeset.change/1)
+                      |> Enum.uniq()
+
+    user
+    |> change_user()
+    |> Ecto.Changeset.put_assoc(:games, game_changesets)
+    |> Repo.update()
   end
 end

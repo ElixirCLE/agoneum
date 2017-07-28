@@ -8,7 +8,6 @@ defmodule Agoneum.Games.Game do
   @optional_fields ~w(year image)a
   @all_fields @required_fields ++ @optional_fields
 
-  # TODO: Add a unique constraint for name/year combo
   schema "games" do
     field :description, :string
     field :image, :string
