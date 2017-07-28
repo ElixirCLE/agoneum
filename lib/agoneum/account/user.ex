@@ -17,7 +17,7 @@ defmodule Agoneum.Account.User do
 
     field :admin, :boolean, default: false, null: false
 
-    many_to_many :games, Agoneum.Games.Game, join_through: "user_games"
+    many_to_many :games, Agoneum.Games.Game, join_through: "user_games", on_replace: :delete
 
     timestamps()
   end

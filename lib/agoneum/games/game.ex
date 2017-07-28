@@ -16,7 +16,7 @@ defmodule Agoneum.Games.Game do
     field :name, :string
     field :year, :integer
 
-    many_to_many :users, Agoneum.Account.User, join_through: "user_games"
+    many_to_many :users, Agoneum.Account.User, join_through: "user_games", on_replace: :delete
 
     timestamps()
   end

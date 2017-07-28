@@ -154,5 +154,43 @@ defmodule Agoneum.AccountTest do
 
       assert List.first(user1.games).id == List.first(user2.games).id
     end
+
+    test "remove_games/2 removes a game from the user's list" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+
+      {:ok, user} = Account.add_games(user, [game, game2])
+      assert length(user.games) == 2
+
+      {:ok, user} = Account.remove_games(user, game)
+      assert length(user.games) == 1
+      assert List.first(user.games).name == "BANG! High Noon"
+    end
+
+    test "remove_games/2 removes multiple games from the user's list" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+      game3 = game_fixture(%{name: "BANG! Fistful of Cards"})
+
+      {:ok, user} = Account.add_games(user, [game, game2, game3])
+      assert length(user.games) == 3
+
+      {:ok, user} = Account.remove_games(user, [game, game3])
+      assert length(user.games) == 1
+      assert List.first(user.games).name == "BANG! High Noon"
+    end
+
+    test "remove_games/2 returns the original game list if the game being removed is not present" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+
+      {:ok, user} = Account.add_games(user, game)
+      {:ok, user} = Account.remove_games(user, game2)
+      assert length(user.games) == 1
+      assert List.first(user.games).name == "BANG!"
+    end
   end
 end
