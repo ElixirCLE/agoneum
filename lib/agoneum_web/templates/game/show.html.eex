@@ -1,0 +1,38 @@
+<h2>Show Game</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @game.name %>
+  </li>
+
+  <li>
+    <strong>Year:</strong>
+    <%= @game.year %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @game.description %>
+  </li>
+
+  <li>
+    <strong>Min players:</strong>
+    <%= @game.min_players %>
+  </li>
+
+  <li>
+    <strong>Max players:</strong>
+    <%= @game.max_players %>
+  </li>
+
+  <li>
+    <strong>Image:</strong>
+    <%= @game.image %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: game_path(@conn, :edit, @game) %></span>
+<span><%= link "Back", to: game_path(@conn, :index) %></span>

@@ -36,6 +36,7 @@ defmodule AgoneumWeb.Router do
     pipe_through [:browser, :browser_auth]
 
     get "/", PageController, :index
+    resources "/games", GameController
   end
 
   scope "/api", AgoneumWeb do
