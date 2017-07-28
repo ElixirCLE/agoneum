@@ -17,6 +17,8 @@ defmodule Agoneum.Games.Game do
     field :name, :string
     field :year, :integer
 
+    many_to_many :users, Agoneum.Account.User, join_through: "user_games"
+
     timestamps()
   end
 
