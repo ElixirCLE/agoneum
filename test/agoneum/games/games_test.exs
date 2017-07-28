@@ -43,6 +43,11 @@ defmodule Agoneum.GamesTest do
       assert {:error, %Ecto.Changeset{}} = Games.create_game(@invalid_attrs)
     end
 
+    test "create_game/1 fails when min players is greater than max players" do
+      invalid_attrs = %{description: "some description", min_players: 2, max_players: 1, name: "some name", year: 42}
+      assert {:error, %Ecto.Changeset{}} = Games.create_game(invalid_attrs)
+    end
+
     test "update_game/2 with valid data updates the game" do
       game = game_fixture()
       assert {:ok, game} = Games.update_game(game, @update_attrs)
@@ -61,6 +66,13 @@ defmodule Agoneum.GamesTest do
       assert game == Games.get_game!(game.id)
     end
 
+    test "update_game/1 fails when min players is greater than max players" do
+      game = game_fixture()
+      invalid_attrs = %{min_players: 2, max_players: 1}
+      assert {:error, %Ecto.Changeset{}} = Games.update_game(game, invalid_attrs)
+      assert game == Games.get_game!(game.id)
+    end
+
     test "delete_game/1 deletes the game" do
       game = game_fixture()
       assert {:ok, %Game{}} = Games.delete_game(game)
@@ -71,5 +83,6 @@ defmodule Agoneum.GamesTest do
       game = game_fixture()
       assert %Ecto.Changeset{} = Games.change_game(game)
     end
+
   end
 end
