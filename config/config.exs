@@ -40,7 +40,7 @@ config :guardian, Guardian,
     "x" => "AH2RCgSAhAOEzrstP2PR1EdtCThncwux_Q2aVJLnD31TA-tAQE2d5LaCKyhspXC0LNWMHKSN6wRP1wfKh2DlJmHJ",
     "y" => "AWAGifHC0Er1NDj4sPTu8Jhh1xmMM4LTOz8ubbq2Bd-uO_iKIDcmPFRA-b9vevn6L9brzkM2qOVyFdw2cMFeYKy8"
   },
-  serializer: Agoneum.GuardianSerializer
+  serializer: AgoneumWeb.GuardianSerializer
 
 config :ueberauth, Ueberauth,
   base_path: "/login",

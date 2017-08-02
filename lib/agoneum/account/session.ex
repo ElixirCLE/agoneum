@@ -30,6 +30,20 @@ defmodule Agoneum.Account.Session do
     Guardian.Plug.current_resource(conn)
   end
 
+  def logout(conn) do
+    logout(conn, conn |> Phoenix.Controller.get_format() |> String.to_atom())
+  end
+  defp logout(conn, :html) do
+    conn
+    |> Guardian.Plug.sign_out()
+  end
+  defp logout(conn, :json) do
+    jwt = Guardian.Plug.current_token(conn)
+    claims = Guardian.Plug.claims(conn)
+    Guardian.revoke!(jwt, claims)
+    conn
+  end
+
   def logged_in?(conn), do: !!current_user(conn)
 
   @spec check_password(nil | %User{}, String.t) :: boolean()
