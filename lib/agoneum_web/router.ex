@@ -9,11 +9,6 @@ defmodule AgoneumWeb.Router do
     plug :put_secure_browser_headers
     plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
-    plug Agoneum.Plug.Authenticate
-  end
-
-  pipeline :browser_auth do
-    plug Guardian.Plug.EnsureAuthenticated, handler: Agoneum.GuardianErrorHandler
   end
 
   pipeline :api do
@@ -22,8 +17,9 @@ defmodule AgoneumWeb.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  pipeline :api_auth do
-    plug Guardian.Plug.EnsureResource
+  pipeline :auth do
+    plug Guardian.Plug.EnsureResource, handler: AgoneumWeb.GuardianErrorHandler
+    plug Guardian.Plug.EnsureAuthenticated, handler: AgoneumWeb.GuardianErrorHandler
   end
 
   scope "/", AgoneumWeb do
@@ -35,10 +31,11 @@ defmodule AgoneumWeb.Router do
   end
 
   scope "/", AgoneumWeb do
-    pipe_through [:browser, :browser_auth]
+    pipe_through [:browser, :auth]
 
     get "/profile/edit", ProfileController, :edit
     put "/profile/update/:id", ProfileController, :update
+
     delete "/logout", SessionController, :delete
   end
 
@@ -50,7 +47,7 @@ defmodule AgoneumWeb.Router do
     end
 
     scope "/v1" do
-      pipe_through :api_auth
+      pipe_through :auth
 
       delete "/sessions", SessionController, :delete, as: :api_session
     end
