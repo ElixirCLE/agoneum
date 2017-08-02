@@ -5,6 +5,10 @@ defmodule AgoneumWeb.ErrorView do
     %{errors: %{detail: "Invalid credentials"}}
   end
 
+  def render("403_unauthenticated.json", _assigns) do
+    %{errors: %{detail: "You must be logged in to do that"}}
+  end
+
   def render("404.json", _assigns) do
     %{errors: %{detail: "Page not found"}}
   end
