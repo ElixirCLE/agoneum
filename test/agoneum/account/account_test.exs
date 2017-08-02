@@ -1,14 +1,13 @@
 defmodule Agoneum.AccountTest do
   use Agoneum.DataCase
 
-  alias Agoneum.Account
+  alias Agoneum.{Account, Account.User, Games}
 
   describe "users" do
-    alias Agoneum.Account.User
-
     @valid_attrs %{email: "email@agoneum.com", name: "some name", password: "some password"}
     @update_attrs %{email: "updated@agoneum.com", name: "some updated name", password: "some updated password"}
     @invalid_attrs %{email: nil, name: nil, password_hash: nil}
+    @game_attrs %{description: "Kill your friends", max_players: 7, min_players: 4, name: "BANG!", year: 2002}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -17,6 +16,17 @@ defmodule Agoneum.AccountTest do
         |> Account.create_user()
 
       user
+      |> Agoneum.Repo.preload(:games)
+    end
+
+    def game_fixture(attrs \\ %{}) do
+      {:ok, game} =
+        attrs
+        |> Enum.into(@game_attrs)
+        |> Games.create_game()
+
+      game
+      |> Agoneum.Repo.preload(:users)
     end
 
     test "list_users/0 returns all users" do
@@ -101,6 +111,86 @@ defmodule Agoneum.AccountTest do
     test "change_user/1 returns a user changeset" do
       user = user_fixture()
       assert %Ecto.Changeset{} = Account.change_user(user)
+    end
+
+    test "add_games/2 associates a game with the user" do
+      user = user_fixture()
+      game = game_fixture()
+      assert length(user.games) == 0
+
+      assert {:ok, user} = Account.add_games(user, game)
+      assert length(user.games) == 1
+    end
+
+    test "add_games/2 adds new games to the user's list" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+
+      {:ok, user} = Account.add_games(user, game)
+      {:ok, user} = Account.add_games(user, game2)
+
+      assert length(user.games) == 2
+    end
+
+    test "add_games/2 adds to a user's list of games without creating duplicates" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+      assert length(user.games) == 0
+
+      {:ok, user} = Account.add_games(user, game)
+      {:ok, user} = Account.add_games(user, [game, game2])
+      assert length(user.games) == 2
+    end
+
+    test "add_games/2 associates a game with multiple users" do
+      user1 = user_fixture(%{email: "user1@agoneum.com", name: "User 1"})
+      user2 = user_fixture(%{email: "user2@agoneum.com", name: "User 2"})
+      game = game_fixture()
+
+      assert {:ok, user1} = Account.add_games(user1, game)
+      assert {:ok, user2} = Account.add_games(user2, game)
+
+      assert List.first(user1.games).id == List.first(user2.games).id
+    end
+
+    test "remove_games/2 removes a game from the user's list" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+
+      {:ok, user} = Account.add_games(user, [game, game2])
+      assert length(user.games) == 2
+
+      {:ok, user} = Account.remove_games(user, game)
+      assert length(user.games) == 1
+      assert List.first(user.games).name == "BANG! High Noon"
+    end
+
+    test "remove_games/2 removes multiple games from the user's list" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+      game3 = game_fixture(%{name: "BANG! Fistful of Cards"})
+
+      {:ok, user} = Account.add_games(user, [game, game2, game3])
+      assert length(user.games) == 3
+
+      {:ok, user} = Account.remove_games(user, [game, game3])
+      assert length(user.games) == 1
+      assert List.first(user.games).name == "BANG! High Noon"
+    end
+
+    test "remove_games/2 returns the original game list if the game being removed is not present" do
+      user = user_fixture()
+      game = game_fixture()
+      game2 = game_fixture(%{name: "BANG! High Noon"})
+
+      {:ok, user} = Account.add_games(user, game)
+      {:ok, user} = Account.remove_games(user, game2)
+      assert length(user.games) == 1
+      assert List.first(user.games).name == "BANG!"
     end
   end
 end

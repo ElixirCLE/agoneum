@@ -1,0 +1,36 @@
+<h2>Listing Games</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Year</th>
+      <th>Description</th>
+      <th>Min players</th>
+      <th>Max players</th>
+      <th>Image</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for game <- @games do %>
+    <tr>
+      <td><%= game.name %></td>
+      <td><%= game.year %></td>
+      <td><%= game.description %></td>
+      <td><%= game.min_players %></td>
+      <td><%= game.max_players %></td>
+      <td><%= game.image %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Game", to: game_path(@conn, :new) %></span>
