@@ -42,9 +42,9 @@ defmodule Agoneum.Mixfile do
      {:scout_apm, "~> 0.0"},
 
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:ex_debug_toolbar, "~> 0.3.0", only: :dev},
 
-     {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+     {:ex_debug_toolbar, "~> 0.3.0", only: [:dev, :test]}
    ]
   end
 
