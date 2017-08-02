@@ -1,5 +1,6 @@
 defmodule AgoneumWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :agoneum
+  use ExDebugToolbar.Phoenix
 
   socket "/socket", AgoneumWeb.UserSocket
 

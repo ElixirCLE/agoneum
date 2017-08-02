@@ -17,7 +17,7 @@ defmodule Agoneum.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Agoneum.Application, []},
-     extra_applications: [:logger, :runtime_tools, :scout_apm]]
+     extra_applications: [:ex_debug_toolbar, :logger, :runtime_tools, :scout_apm]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,13 +36,15 @@ defmodule Agoneum.Mixfile do
      {:phoenix, "~> 1.3.0"},
      {:phoenix_ecto, "~> 3.2"},
      {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:phoenix_slime, "~> 0.9.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:postgrex, ">= 0.0.0"},
      {:scout_apm, "~> 0.0"},
 
-     {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
+     {:phoenix_live_reload, "~> 1.0", only: :dev},
+
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+     {:ex_debug_toolbar, "~> 0.3.0", only: [:dev, :test]}
    ]
   end
 

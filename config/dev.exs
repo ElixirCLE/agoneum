@@ -11,6 +11,7 @@ config :agoneum, AgoneumWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  instrumenters: [ExDebugToolbar.Collector.InstrumentationCollector],
   watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
                     cd: Path.expand("../assets", __DIR__)]]
 
@@ -55,4 +56,12 @@ config :agoneum, Agoneum.Repo,
   password: System.get_env("PG_PASSWORD") || "postgres",
   database: "agoneum_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 10,
+  loggers: [ExDebugToolbar.Collector.EctoCollector, Ecto.LogEntry]
+
+config :ex_debug_toolbar,
+  enable: true
+
+config :phoenix, :template_engines,
+  eex: ExDebugToolbar.Template.EExEngine,
+  exs: ExDebugToolbar.Template.ExsEngine
