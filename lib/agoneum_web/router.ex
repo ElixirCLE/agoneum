@@ -33,7 +33,6 @@ defmodule AgoneumWeb.Router do
       get "/:provider/callback", SessionController, :callback
       post "/:provider/callback", SessionController, :callback
     end
-    delete "/logout", SessionController, :delete
   end
 
   scope "/", AgoneumWeb do
@@ -41,6 +40,8 @@ defmodule AgoneumWeb.Router do
 
     get "/profile/edit", ProfileController, :edit
     put "/profile/update/:id", ProfileController, :update
+
+    delete "/logout", SessionController, :delete
   end
 
   scope "/api", AgoneumWeb do
