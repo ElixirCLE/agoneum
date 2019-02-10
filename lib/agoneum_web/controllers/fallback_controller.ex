@@ -18,13 +18,6 @@ defmodule AgoneumWeb.FallbackController do
     |> render(AgoneumWeb.ErrorView, :"401_invalid_credentials")
   end
 
-  # TODO: can we get rid of this?
-  def unauthenticated(conn, _params) do
-    conn
-    |> put_flash(:error, "You must be logged in to do that")
-    |> redirect(to: session_path(conn, :request, :identity))
-  end
-
   def call(conn, {:error, :unauthenticated}) do
     conn
     |> put_status(:forbidden)
@@ -35,5 +28,12 @@ defmodule AgoneumWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> render(AgoneumWeb.ErrorView, :"404")
+  end
+
+  # TODO: can we get rid of this?
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_flash(:error, "You must be logged in to do that")
+    |> redirect(to: session_path(conn, :request, :identity))
   end
 end
