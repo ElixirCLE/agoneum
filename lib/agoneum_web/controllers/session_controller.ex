@@ -52,14 +52,13 @@ defmodule AgoneumWeb.SessionController do
   end
   defp delete(conn, _, :html) do
     conn
-    |> Guardian.Plug.sign_out()
+    |> Session.logout()
     |> put_flash(:info, "Successfully logged out")
     |> redirect(to: session_path(conn, :request, :identity))
   end
   defp delete(conn, _, :json) do
-    jwt = Guardian.Plug.current_token(conn)
-    claims = Guardian.Plug.claims(conn)
-    Guardian.revoke!(jwt, claims)
-    render(conn, "logout.json")
+    conn
+    |> Session.logout()
+    |> render("logout.json")
   end
 end

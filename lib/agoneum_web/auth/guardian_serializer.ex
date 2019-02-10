@@ -1,4 +1,4 @@
-defmodule Agoneum.GuardianSerializer do
+defmodule AgoneumWeb.GuardianSerializer do
   @moduledoc """
   Handles conversion to and from JWT
   """

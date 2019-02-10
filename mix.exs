@@ -30,18 +30,21 @@ defmodule Agoneum.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+     {:canada, "~> 1.0.1"},
+     {:canary, "~> 1.1.0"},
      {:comeonin, "~> 3.0.0"},
      {:cowboy, "~> 1.0"},
      {:gettext, "~> 0.11"},
      {:guardian, "~> 0.14.4"},
      {:phoenix, "~> 1.3.0"},
      {:phoenix_ecto, "~> 3.2"},
-     {:phoenix_html, "~> 2.6"},
+     {:phoenix_html, "~> 2.10"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:phoenix_slime, "~> 0.10.0"},
      {:phoenix_pubsub, "~> 1.0"},
+     {:plug_cowboy, "~> 1.0"},
      {:postgrex, ">= 0.0.0"},
-     {:scout_apm, "~> 0.0"},
+     {:scout_apm, "~> 0.4"},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_facebook, "~> 0.6"},
      {:ueberauth_google, "~> 0.5"},
@@ -60,7 +63,7 @@ defmodule Agoneum.Mixfile do
   defp aliases do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
-     "s": ["phx.server"],
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+     s: ["phx.server"],
+     test: ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end

@@ -40,7 +40,7 @@ config :guardian, Guardian,
     "x" => "AH2RCgSAhAOEzrstP2PR1EdtCThncwux_Q2aVJLnD31TA-tAQE2d5LaCKyhspXC0LNWMHKSN6wRP1wfKh2DlJmHJ",
     "y" => "AWAGifHC0Er1NDj4sPTu8Jhh1xmMM4LTOz8ubbq2Bd-uO_iKIDcmPFRA-b9vevn6L9brzkM2qOVyFdw2cMFeYKy8"
   },
-  serializer: Agoneum.GuardianSerializer
+  serializer: AgoneumWeb.GuardianSerializer
 
 config :ueberauth, Ueberauth,
   base_path: "/login",
@@ -64,6 +64,9 @@ config :ueberauth, Ueberauth.Strategy.Facebook.OAuth,
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: "100732563415-5efppgqkh9nk609m8u4v97ccobbvh7j1.apps.googleusercontent.com",
   client_secret: "s1iVunv1TJ5YRMVw2umKfCzW"
+
+config :canary,
+  repo: Agoneum.Repo
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

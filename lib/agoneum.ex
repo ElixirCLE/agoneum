@@ -23,6 +23,7 @@ defmodule AgoneumWeb do
       import Plug.Conn
       import AgoneumWeb.Router.Helpers
       import AgoneumWeb.Gettext
+      import Canary.Plugs
     end
   end
 

@@ -4,6 +4,8 @@ defmodule AgoneumWeb.ErrorViewTest do
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View
 
+  # TODO: Add tests for 401 and 403
+
   test "renders 404.json" do
     assert render(AgoneumWeb.ErrorView, "404.json", []) ==
            %{errors: %{detail: "Page not found"}}
