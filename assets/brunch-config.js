@@ -51,9 +51,13 @@ exports.config = {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
     },
+    copycat: {
+      fonts: ["node_modules/font-awesome/fonts"]
+    },
     sass: {
       options: {
-        includePaths: ["node_modules/bootstrap/scss"],
+        includePaths: ["node_modules/bootstrap/scss",
+                       "node_modules/font-awesome/scss"],
         precision: 8
       }
     }
@@ -73,5 +77,8 @@ exports.config = {
       Tether: 'tether',
       bootstrap: 'bootstrap'
     },
+    styles: {
+      "bootstrap-social": ['bootstrap-social.css']
+    }
   }
 };

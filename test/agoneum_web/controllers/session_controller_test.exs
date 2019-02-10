@@ -9,23 +9,23 @@ defmodule AgoneumWeb.SessionControllerTest do
     @invalid_attrs %{email: nil, password: nil}
 
     test "shows the login form", %{conn: conn} do
-      conn = get conn, session_path(conn, :new)
+      conn = get conn, session_path(conn, :request, :identity)
       assert html_response(conn, 200) =~ "Log In"
     end
 
     test "logs the user in", %{conn: conn} do
       Account.create_user(@create_attrs)
-      conn = post conn, session_path(conn, :create), session: @login_attrs
+      conn = post conn, session_path(conn, :callback, :identity), session: @login_attrs
       assert redirected_to(conn) == page_path(conn, :index)
     end
 
     test "does not log the user in when data is invalid", %{conn: conn} do
-      conn = post conn, session_path(conn, :create), session: @invalid_attrs
+      conn = post conn, session_path(conn, :callback, :identity), session: @invalid_attrs
       assert get_flash(conn, :error) == "Invalid credentials"
     end
 
     test "does not log the user in when data is missing", %{conn: conn} do
-      conn = post conn, session_path(conn, :create), session: %{}
+      conn = post conn, session_path(conn, :callback, :identity), session: %{}
       assert get_flash(conn, :error) == "Invalid credentials"
     end
   end

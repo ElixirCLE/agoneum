@@ -3,8 +3,11 @@ defmodule Agoneum.Account.Session do
   alias Agoneum.Account
   alias Agoneum.Account.User
 
-  @spec authenticate(map()) :: {:ok, %User{}} | {:error, :invalid_credentials}
-  def authenticate(%{"email" => email, "password" => password}) do
+  @spec authenticate(map(), map()) :: {:ok, %User{}} | {:error, :invalid_credentials}
+  def authenticate(params, auth \\ %{provider: :identity, info: %{}}) do
+    authenticate(auth.provider, params, auth.info)
+  end
+  defp authenticate(:identity, %{"session" => %{"email" => email, "password" => password}}, _) do
     user = Account.get_user_by_email(email)
 
     case check_password(user, password) do
@@ -12,7 +15,16 @@ defmodule Agoneum.Account.Session do
       _    -> {:error, :invalid_credentials}
     end
   end
-  def authenticate(_), do: {:error, :invalid_credentials}
+  defp authenticate(:identity, _, _), do: {:error, :invalid_credentials}
+  defp authenticate(_, _, %Ueberauth.Auth.Info{email: email, name: name}) do
+    case Account.get_user_by_email(email) do
+      nil ->
+        # Create the user if they do not already exist
+        Account.create_user_admin(%{email: email, name: name})
+      user ->
+        {:ok, user}
+    end
+  end
 
   def current_user(conn) do
     Guardian.Plug.current_resource(conn)
