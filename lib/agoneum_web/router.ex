@@ -41,8 +41,6 @@ defmodule AgoneumWeb.Router do
 
     get "/profile/edit", ProfileController, :edit
     put "/profile/update/:id", ProfileController, :update
-
-    delete "/logout", SessionController, :delete
   end
 
   scope "/api", AgoneumWeb do
