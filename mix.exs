@@ -43,7 +43,7 @@ defmodule Agoneum.Mixfile do
      {:phoenix_slime, "~> 0.10.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:postgrex, ">= 0.0.0"},
-     {:scout_apm, "~> 0.0"},
+     {:scout_apm, "~> 0.4"},
      {:ueberauth, "~> 0.4"},
      {:ueberauth_facebook, "~> 0.6"},
      {:ueberauth_google, "~> 0.5"},
@@ -62,7 +62,7 @@ defmodule Agoneum.Mixfile do
   defp aliases do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"],
-     "s": ["phx.server"],
-     "test": ["ecto.create --quiet", "ecto.migrate", "test"]]
+     s: ["phx.server"],
+     test: ["ecto.create --quiet", "ecto.migrate", "test"]]
   end
 end
