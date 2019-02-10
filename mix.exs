@@ -38,7 +38,7 @@ defmodule Agoneum.Mixfile do
      {:phoenix_ecto, "~> 3.2"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:phoenix_slime, "~> 0.9.0"},
+     {:phoenix_slime, "~> 0.10.0"},
      {:phoenix_pubsub, "~> 1.0"},
      {:postgrex, ">= 0.0.0"},
      {:scout_apm, "~> 0.0"},
